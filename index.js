@@ -1,3 +1,5 @@
+import { createCharacterCard } from "./components/card/card.js";
+
 const cardContainer = document.querySelector('[data-js="card-container"]');
 const searchBarContainer = document.querySelector(
   '[data-js="search-bar-container"]'
@@ -33,10 +35,7 @@ async function fetchCharacters() {
     let type = character.type;
     let occ = character.episode.length;
 
-    //testing stuff w/o actual function
-    let li = document.createElement("li");
-    li.innerText = `Name: ${name} \r\n Occurances: ${occ} \r\n Status: ${status} \r\n Img-Source: ${imgSrc} \r\n  Type: ${type} \r\n Index: ${index1}`;
-    cardContainer.append(li);
+    cardContainer.append(createCharacterCard(name, status, type, occ, imgSrc));
   });
 }
 

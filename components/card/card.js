@@ -1,7 +1,7 @@
 export function createCharacterCard(name, status, type, occurances, imageUrl) {
-const newCard = document.createElement("li");
-newCard.classList.add("card");
-newCard.innerHTML = `
+  const newCard = document.createElement("li");
+  newCard.classList.add("card");
+  newCard.innerHTML = `
 
         <li class="card">
           <div class="card__image-container">
@@ -23,6 +23,6 @@ newCard.innerHTML = `
               <dd class="card__info-description">${occurances}</dd>
             </dl>
           </div>
-          /</li>`
-          return newCard;
+          </li>`;
+  return newCard;
 }
