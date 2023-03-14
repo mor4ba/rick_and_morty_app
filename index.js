@@ -66,9 +66,12 @@ async function fetchCharacters(pageCount = 1, searchQuery = "") {
     page = pageCount; // defining page to match pageCount as in the url and change dynamically
     pagination.innerHTML = `${pageCount} / ${maxPage}`; //the pagination text box needs to show the corresponding page nr
 
-    handleNavigation();
+    handleNavigation(); // we call the function to handle the behaviour of the buttons
 
     cardContainer.innerHTML = "";
+
+    // in order to make our card element diynamic we use array method for each to access the corresponding information from the API's array elements
+    // you need to pass these parameters (fetched on line 61) in the function you created to iterate through the original HTML 
 
     characters.forEach((character) => {
       let name = character.name;
@@ -77,6 +80,7 @@ async function fetchCharacters(pageCount = 1, searchQuery = "") {
       let type = character.type;
       let occ = character.episode.length;
 
+      //we append the new card containers and call the function that will iterate through the relevant parameters
       cardContainer.append(
         createCharacterCard(name, status, type, occ, imgSrc)
       );
@@ -90,6 +94,8 @@ async function fetchCharacters(pageCount = 1, searchQuery = "") {
     console.error(error);
   }
 }
+
+//finally we are just changing the the pagination number by calling the fetchCharacters and adjusting the "page" parameters to behave accordingly, 
 
 nextButton.addEventListener("click", () => {
   fetchCharacters(++page, query);
