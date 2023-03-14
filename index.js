@@ -1,12 +1,10 @@
 import { createCharacterCard } from "./components/card/card.js";
 
 const cardContainer = document.querySelector('[data-js="card-container"]');
-const searchBarContainer = document.querySelector(
-  '[data-js="search-bar-container"]'
-);
+
 const searchBarInput = document.querySelector(".search-bar__input");
 const searchBar = document.querySelector('[data-js="search-bar"]');
-const navigation = document.querySelector('[data-js="navigation"]');
+
 const prevButton = document.querySelector('[data-js="button-prev"]');
 const nextButton = document.querySelector('[data-js="button-next"]');
 const pagination = document.querySelector('[data-js="pagination"]');
@@ -53,10 +51,9 @@ async function fetchCharacters(pageCount = 1, searchQuery = "") {
       `https://rickandmortyapi.com/api/character?page=${pageCount}&name=${searchQuery}`
     );
     const data = await fetchJsonData.json();
-    
+
     // First we fetch the API and the relevant json docs
     // then we access the values of the "result" and the "info" elements if the retrieved obj via destructuring
-    
 
     let { results: characters } = data;
     let { info } = data;
@@ -86,6 +83,7 @@ async function fetchCharacters(pageCount = 1, searchQuery = "") {
       `WUBBA LUBBA DUB DUB \r\nOops! something went wrong: No characters for your search query! Try again!`
     );
     fetchCharacters();
+    query = "";
     searchBar.reset();
     console.error(error);
   }
