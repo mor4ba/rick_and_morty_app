@@ -56,7 +56,7 @@ async function fetchCharacters(pageCount = 1, searchQuery = "") {
     
     // First we fetch the API and the relevant json docs
     // then we access the values of the "result" and the "info" elements if the retrieved obj via destructuring
-    //
+    
 
     let { results: characters } = data;
     let { info } = data;
