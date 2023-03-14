@@ -1,24 +1,28 @@
 import { createCharacterCard } from "./components/card/card.js";
+import { handleNavigation } from "./components/nav-pagination/nav-pagination.js";
 
 const cardContainer = document.querySelector('[data-js="card-container"]');
 
 const searchBarInput = document.querySelector(".search-bar__input");
 const searchBar = document.querySelector('[data-js="search-bar"]');
 
-const prevButton = document.querySelector('[data-js="button-prev"]');
-const nextButton = document.querySelector('[data-js="button-next"]');
+export const prevButton = document.querySelector('[data-js="button-prev"]');
+export const nextButton = document.querySelector('[data-js="button-next"]');
 const pagination = document.querySelector('[data-js="pagination"]');
 
 // States
-let maxPage = 42;
-let page = 1;
+export let maxPage = 42;
+export let page = 1;
 let query = "";
 
 // this event listener is targetting the input of the search bar (as you are typing, whithout needing to press submit)
 // we target the value of the query, on page 1 and call our fetchCharacters function, which passes two parameters
 //if the search bar is empty we are automatically redirected to the fetch
 
-searchBarInput.addEventListener("input", (event) => {
+searchBarInput.addEventListener("input", updateBySearchQuery);
+searchBarInput.addEventListener("submit", updateBySearchQuery);
+
+function updateBySearchQuery() {
   query = event.target.value;
   page = 1;
   fetchCharacters(page, query);
@@ -26,21 +30,9 @@ searchBarInput.addEventListener("input", (event) => {
   if (query === "") {
     fetchCharacters();
   }
-});
-
-// with this function we are assuring that the next and previous buttons are not going beyond the available amount of data, ie. less than 1 and more than 42
-// the buttons are basically enabled unless the arguments of the if statement are met
-
-function handleNavigation() {
-  nextButton.disabled = false;
-  prevButton.disabled = false;
-
-  if (page === maxPage) {
-    nextButton.disabled = true;
-  } else if (page === 1) {
-    prevButton.disabled = true;
-  }
 }
+
+handleNavigation();
 
 //this async function is the central piece of our app:
 //it passes two parameters: pageCount - from the data fetched from our API and searchQuery from the input of the search bar
@@ -67,8 +59,8 @@ async function fetchCharacters(pageCount = 1, searchQuery = "") {
 
     cardContainer.innerHTML = "";
 
-    // in order to make our card element diynamic we use array method for each to access the corresponding information from the API's array elements
-    // you need to pass these parameters (fetched on line 61) in the function you created to iterate through the original HTML 
+    // in order to make our card element dynamic we use array method for each to access the corresponding information from the API's array elements
+    // you need to pass these parameters (fetched on line 61) in the function you created to iterate through the original HTML
 
     characters.forEach((character) => {
       let name = character.name;
@@ -77,7 +69,7 @@ async function fetchCharacters(pageCount = 1, searchQuery = "") {
       let type = character.type;
       let occ = character.episode.length;
 
-      //we append the new card containers and call the function that will iterate through the relevant parameters
+      //we append the new cards created by our createCharacterCard() Function, which takes all the parameters we declared before and returns a list item.
       cardContainer.append(
         createCharacterCard(name, status, type, occ, imgSrc)
       );
@@ -93,7 +85,7 @@ async function fetchCharacters(pageCount = 1, searchQuery = "") {
   }
 }
 
-//finally we are just changing the the pagination number by calling the fetchCharacters and adjusting the "page" parameters to behave accordingly, 
+// on clicking the next/prev buttons we call the fetchCharacters() function with our updated global page variable as a parameter to tell it which next/previous page it should display.
 
 nextButton.addEventListener("click", () => {
   fetchCharacters(++page, query);
