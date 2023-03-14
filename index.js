@@ -21,7 +21,7 @@ searchBarInput.addEventListener("input", (event) => {
   page = 1;
   fetchCharacters(page, query);
 
-  if (query == "") {
+  if (query === "") {
     fetchCharacters();
   }
 });
@@ -68,8 +68,10 @@ async function fetchCharacters(pageCount = 1, searchQuery = "") {
     });
   } catch (error) {
     alert(
-      `Oops! something went wrong: No characters for your search query! Try again! WHABALABADUP DUP`
+      `WUBBA LUBBA DUB DUB \r\nOops! something went wrong: No characters for your search query! Try again!`
     );
+    fetchCharacters();
+    searchBar.reset();
     console.error(error);
   }
 }
