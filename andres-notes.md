@@ -16,10 +16,6 @@ let maxPage = 42;
 let page = 1;
 let query = "";
 
-// this event listener is targetting the input of the search bar (as you are typing, whithout needing to press submit)
-// we target the value of the query, on page 1 and call our fetchCharacters function, which passes two parameters
-//if the search bar is empty we are automatically redirected to the fetch
-
 searchBarInput.addEventListener("input", (event) => {
   query = event.target.value;
   page = 1;
@@ -29,9 +25,6 @@ searchBarInput.addEventListener("input", (event) => {
     fetchCharacters();
   }
 });
-
-// with this function we are assuring that the next and previous buttons are not going beyond the available amount of data, ie. less than 1 and more than 42
-// the buttons are basically enabled unless the arguments of the if statement are met
 
 function handleNavigation() {
   nextButton.disabled = false;
@@ -44,27 +37,20 @@ function handleNavigation() {
   }
 }
 
-//this async function is the central piece of our app:
-//it passes two parameters: pageCount - from the data fetched from our API and searchQuery from the input of the search bar
-
 async function fetchCharacters(pageCount = 1, searchQuery = "") {
   try {
     const fetchJsonData = await fetch(
       `https://rickandmortyapi.com/api/character?page=${pageCount}&name=${searchQuery}`
     );
     const data = await fetchJsonData.json();
-    
-    // First we fetch the API and the relevant json docs
-    // then we access the values of the "result" and the "info" elements if the retrieved obj via destructuring
-    //
 
     let { results: characters } = data;
     let { info } = data;
     console.log(data);
 
-    maxPage = info.pages; // set to match the value contained in the API object
-    page = pageCount; // defining page to match pageCount as in the url and change dynamically
-    pagination.innerHTML = `${pageCount} / ${maxPage}`; //the pagination text box needs to show the corresponding page nr
+    maxPage = info.pages;
+    page = pageCount;
+    pagination.innerHTML = `${pageCount} / ${maxPage}`;
 
     handleNavigation();
 
