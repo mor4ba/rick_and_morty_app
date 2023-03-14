@@ -9,3 +9,8 @@
 .button:hover {
   background-color: var(--color-nemo);
 }
+
+.button[disabled="true"] {
+  pointer-events: none;
+  background: darkgray;
+}
