@@ -10,6 +10,7 @@ const prevButton = document.querySelector('[data-js="button-prev"]');
 const nextButton = document.querySelector('[data-js="button-next"]');
 const pagination = document.querySelector('[data-js="pagination"]');
 
+
 // States
 // Anzahl max. Seiten, wird nicht verändert
 const maxPage = 42;
@@ -17,6 +18,8 @@ const maxPage = 42;
 //Aktuelle Seitenzahl, verändert sich durch die fetchCharacters() Funktion und passt sich der aktuellen Seitenzahl an.
 let page = 1;
 const searchQuery = "";
+
+
 
 async function fetchCharacters(pageCount = 1) {
   //Fetch Rick&Morty Datensatz mit entsprechender Seitenzahl (= pageCount)
