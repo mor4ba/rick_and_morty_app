@@ -27,8 +27,6 @@ function updateBySearchQuery() {
   }
 }
 
-handleNavigation();
-
 //this async function is the central piece of our app:
 //it passes two parameters: pageCount - from the data fetched from our API and searchQuery from the input of the search bar
 
@@ -90,4 +88,5 @@ prevButton.addEventListener("click", () => {
   fetchCharacters(--page, query);
 });
 
+handleNavigation();
 fetchCharacters();
