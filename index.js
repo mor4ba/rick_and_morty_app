@@ -15,12 +15,7 @@ export let maxPage = 42;
 export let page = 1;
 let query = "";
 
-// this event listener is targetting the input of the search bar (as you are typing, whithout needing to press submit)
-// we target the value of the query, on page 1 and call our fetchCharacters function, which passes two parameters
-//if the search bar is empty we are automatically redirected to the fetch
-
 searchBarInput.addEventListener("input", updateBySearchQuery);
-searchBarInput.addEventListener("submit", updateBySearchQuery);
 
 function updateBySearchQuery() {
   query = event.target.value;
